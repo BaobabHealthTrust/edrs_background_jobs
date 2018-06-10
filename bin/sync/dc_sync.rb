@@ -26,6 +26,7 @@ if hq[:bidirectional] == true
               source: "#{hq[:protocol]}://#{hq[:host]}:#{hq[:port]}/#{hq[:primary]}",
                   target: "#{source[:protocol]}://#{source[:host]}:#{source[:port]}/#{source[:primary]}",
                   connection_timeout: 60000,
+                  continuous: true,
                   filter: 'Person/district_sync',
                   query_params: {
                       district_code: "#{district_code}"
@@ -40,6 +41,7 @@ if hq[:bidirectional] == true
               source: "#{hq[:protocol]}://#{hq[:host]}:#{hq[:port]}/#{hq[:primary]}",
                   target: "#{source[:protocol]}://#{source[:host]}:#{source[:port]}/#{source[:primary]}",
                   connection_timeout: 60000,
+                  continuous: true,
                   filter: 'PersonIdentifier/district_sync',
                   query_params: {
                       district_code: "#{district_code}"
@@ -55,6 +57,7 @@ if hq[:bidirectional] == true
                   target: "#{source[:protocol]}://#{source[:host]}:#{source[:port]}/#{source[:primary]}",
                   connection_timeout: 60000,
                   filter: 'Audit/facility_sync',
+                  continuous: true,
                   query_params: {
                       site_id: "#{district_code}"
                             }
@@ -69,6 +72,7 @@ if hq[:bidirectional] == true
                   target: "#{source[:protocol]}://#{source[:host]}:#{source[:port]}/#{source[:primary]}",
                   connection_timeout: 60000,
                   filter: 'Sync/district_sync',
+                  continuous: true,
                   query_params: {
                       district_code: "#{district_code}"
                             }
@@ -82,6 +86,7 @@ if hq[:bidirectional] == true
               source: "#{hq[:protocol]}://#{hq[:host]}:#{hq[:port]}/#{hq[:primary]}",
                   target: "#{source[:protocol]}://#{source[:host]}:#{source[:port]}/#{source[:primary]}",
                   connection_timeout: 60000,
+                  continuous: true,
                   filter: 'PersonRecordStatus/district_sync',
                   query_params: {
                       district_code: "#{district_code}"

@@ -26,6 +26,7 @@ if dc[:bidirectional] == true
                   source: "#{dc[:protocol]}://#{dc[:host]}:#{dc[:port]}/#{dc[:primary]}",
                   target: "#{fc[:protocol]}://#{fc[:host]}:#{fc[:port]}/#{fc[:primary]}",
                   connection_timeout: 60000,
+                  continuous: true,
                   filter: 'Person/facility_sync',
               		query_params: {
         		     			facility_code: "#{facility_code}"
@@ -41,6 +42,7 @@ if dc[:bidirectional] == true
                   source: "#{dc[:protocol]}://#{dc[:host]}:#{dc[:port]}/#{dc[:primary]}",
                   target: "#{fc[:protocol]}://#{fc[:host]}:#{fc[:port]}/#{fc[:primary]}",
                   connection_timeout: 60000,
+                  continuous: true,
                   filter: 'PersonIdentifier/facility_sync',
                   query_params: {
                       facility_code: "#{facility_code}"
@@ -57,6 +59,7 @@ if dc[:bidirectional] == true
                   source: "#{dc[:protocol]}://#{dc[:host]}:#{dc[:port]}/#{dc[:primary]}",
                   target: "#{fc[:protocol]}://#{fc[:host]}:#{fc[:port]}/#{fc[:primary]}",
                   connection_timeout: 60000,
+                  continuous: true,
                   filter: 'Audit/facility_sync',
                   query_params: {
                       facility_code: "#{facility_code}"
@@ -71,6 +74,7 @@ if dc[:bidirectional] == true
                 source: "#{dc[:protocol]}://#{dc[:host]}:#{dc[:port]}/#{dc[:primary]}",
                 target: "#{fc[:protocol]}://#{fc[:host]}:#{fc[:port]}/#{fc[:primary]}",
                 connection_timeout: 60000,
+                continuous: true,
                 filter: 'Sync/facility_sync',
                 query_params: {
                       facility_code: "#{facility_code}"
@@ -85,6 +89,7 @@ if dc[:bidirectional] == true
               source: "#{dc[:protocol]}://#{dc[:host]}:#{dc[:port]}/#{dc[:primary]}",
               target: "#{fc[:protocol]}://#{fc[:host]}:#{fc[:port]}/#{fc[:primary]}",
               connection_timeout: 60000,
+              continuous: true,
               filter: 'PersonRecordStatus/facility_sync',
               query_params: {
                       facility_code: "#{facility_code}"

@@ -13,6 +13,7 @@ target_to_source = %x[curl -s -k -H 'Content-Type: application/json' -X POST -d 
                   source: "#{source[:protocol]}://#{source[:host]}:#{source[:port]}/#{source[:primary]}",
                   target: "#{target[:protocol]}://#{target[:host]}:#{target[:port]}/#{target[:primary]}",
                   connection_timeout: 60000,
+                  continuous: true,
                   filter: 'Barcode/assigned_sync',
                   query_params: {
                       assigned: "#{assigned}"
