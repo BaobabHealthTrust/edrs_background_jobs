@@ -33,9 +33,6 @@ if hq[:bidirectional] == true
                             }
                    }.to_json}' "#{source[:protocol]}://#{source[:username]}:#{source[:password]}@#{source[:host]}:#{source[:port]}/_replicate"]
    
-    JSON.parse(target_to_source).each do |key, value|
-      puts "#{key.to_s.capitalize} : #{value.to_s.capitalize}"
-    end
 
     person_ids_status_target_to_source = %x[curl -s -k -H 'Content-Type: application/json' -X POST -d '#{{
               source: "#{hq[:protocol]}://#{hq[:host]}:#{hq[:port]}/#{hq[:primary]}",
@@ -48,9 +45,6 @@ if hq[:bidirectional] == true
                             }
                    }.to_json}' "#{source[:protocol]}://#{source[:username]}:#{source[:password]}@#{source[:host]}:#{source[:port]}/_replicate"]
    
-    JSON.parse(person_ids_status_target_to_source).each do |key, value|
-      puts "#{key.to_s.capitalize} : #{value.to_s.capitalize}"
-    end
 
     audits_target_to_source = %x[curl -s -k -H 'Content-Type: application/json' -X POST -d '#{{
               source: "#{hq[:protocol]}://#{hq[:host]}:#{hq[:port]}/#{hq[:primary]}",
@@ -63,9 +57,6 @@ if hq[:bidirectional] == true
                             }
                    }.to_json}' "#{source[:protocol]}://#{source[:username]}:#{source[:password]}@#{source[:host]}:#{source[:port]}/_replicate"]
    
-    JSON.parse(audits_target_to_source).each do |key, value|
-      puts "#{key.to_s.capitalize} : #{value.to_s.capitalize}"
-    end
 
     sync_target_to_source = %x[curl -s -k -H 'Content-Type: application/json' -X POST -d '#{{
               source: "#{hq[:protocol]}://#{hq[:host]}:#{hq[:port]}/#{hq[:primary]}",
@@ -78,9 +69,6 @@ if hq[:bidirectional] == true
                             }
                    }.to_json}' "#{source[:protocol]}://#{source[:username]}:#{source[:password]}@#{source[:host]}:#{source[:port]}/_replicate"]
    
-    JSON.parse(sync_target_to_source).each do |key, value|
-      puts "#{key.to_s.capitalize} : #{value.to_s.capitalize}"
-    end
 
     record_status_target_to_source = %x[curl -s -k -H 'Content-Type: application/json' -X POST -d '#{{
               source: "#{hq[:protocol]}://#{hq[:host]}:#{hq[:port]}/#{hq[:primary]}",
@@ -93,9 +81,7 @@ if hq[:bidirectional] == true
                             }
                    }.to_json}' "#{source[:protocol]}://#{source[:username]}:#{source[:password]}@#{source[:host]}:#{source[:port]}/_replicate"]
    
-    JSON.parse(record_status_target_to_source).each do |key, value|
-      puts "#{key.to_s.capitalize} : #{value.to_s.capitalize}"
-    end
+
 end
 
 

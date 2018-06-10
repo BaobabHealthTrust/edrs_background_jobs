@@ -30,9 +30,6 @@ if hq[:bidirectional] == true
               continuous: true
                    }.to_json}' "#{source[:protocol]}://#{source[:username]}:#{source[:password]}@#{source[:host]}:#{source[:port]}/_replicate"]
    
-    JSON.parse(target_to_source).each do |key, value|
-      puts "#{key.to_s.capitalize} : #{value.to_s.capitalize}"
-    end
 end
 
 

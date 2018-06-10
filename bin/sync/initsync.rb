@@ -125,10 +125,6 @@ target_to_source = %x[curl -s -k -H 'Content-Type: application/json' -X POST -d 
                    }.to_json}' "#{source[:protocol]}://#{source[:username]}:#{source[:password]}@#{source[:host]}:#{source[:port]}/_replicate"]
 
 
-JSON.parse(target_to_source).each do |key, value|
-      puts "#{key.to_s.capitalize} : #{value.to_s.capitalize}"
-end
-
 finalize_setup("admin","p@ssw0rd")
 
 
