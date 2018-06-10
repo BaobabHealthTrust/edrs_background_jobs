@@ -1,0 +1,17 @@
+development: &development
+  protocol: 'http'
+  host: localhost
+  port: 5984
+  prefix: edrs
+  suffix: dc #facility
+  username: admin
+  password: password
+
+test:
+  <<: *development
+  suffix: test
+
+production:
+  <<: *development
+  protocol: 'http'
+  suffix: dc #facility

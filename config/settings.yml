@@ -1,0 +1,12 @@
+ crtkey: password
+ facility_code:
+ district_code:  LL #| LL | ZA
+ exact_duplicate: false
+ potential_duplicate: true
+ duplicate_precision: 90 #percentage precision
+ site_type: remote #facility | dc | remote
+ den_assignment_interval: 10
+ app_gate_url: 
+ exclude: Chitipa,Lilongwe,Ntcheu,Blantyre
+ include_lo_role: true
+ restrict_same_creatials_for_multiple_users: true
