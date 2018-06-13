@@ -7,7 +7,11 @@ end
 if Rails.env == 'development'
      SyncData.perform_in(240)
 else
-  	 SyncData.perform_in(1600)
+	if SETTINGS['site_type'].to_s != "remote"
+		 SyncData.perform_in(600)
+	else
+		 SyncData.perform_in(1600)
+	end
 end
 
 if Rails.env == 'development'

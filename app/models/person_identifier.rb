@@ -187,6 +187,24 @@ class PersonIdentifier < CouchRest::Model::Base
       self.can_assign_den = true
 
     elsif person_assigened_den.present?
+      
+          PersonRecordStatus.create({
+                                    :person_record_id => person.id.to_s,
+                                    :status => "HQ ACTIVE",
+                                    :district_code => (district_code rescue SETTINGS['district_code']),
+                                    :comment=> "Record approved at DC",
+                                    :creator => creator})
+
+          person.approved = "Yes"
+          person.approved_at = Time.now
+
+          person.save
+
+          Audit.create(record_id: person.id,
+                         audit_type: "Audit",
+                         user_id: creator,
+                         level: "Person",
+                         reason: "Approved record")
 
       puts "Person #{den_assigned_to_person.person_record_id rescue ''} already assigned DEN"
       self.can_assign_den = true
