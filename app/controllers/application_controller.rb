@@ -22,6 +22,7 @@ class ApplicationController < ActionController::Base
 
   	render :text => "ok"
   end
+
   def start_den_assigment
   	begin
   		cron_job_tracker = CronJobsTracker.first
@@ -49,6 +50,7 @@ class ApplicationController < ActionController::Base
   	render :text => "ok"
   end
 
+  
   def start_couch_to_mysql
   	cron_job_tracker = CronJobsTracker.first
    	now = Time.now
