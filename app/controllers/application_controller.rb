@@ -6,11 +6,20 @@ class ApplicationController < ActionController::Base
   def start_sync
   	cron_job_tracker = CronJobsTracker.first
    	now = Time.now
-  	if (now - (cron_job_tracker.time_last_synced.to_time rescue  Date.today.to_time)).to_i > 3600
-  		if SuckerPunch::Queue.stats["SyncData"]["workers"]["idle"].to_i == 1	
-            SyncData.perform_in(3600)
+    if SETTINGS["site_type"] == "remote"
+        if (now - (cron_job_tracker.time_last_synced.to_time rescue  Date.today.to_time)).to_i > 600
+           if SuckerPunch::Queue.stats["SyncData"]["workers"]["idle"].to_i == 1 
+                SyncData.perform_in(600)
+           end
+        end
+    else
+      if (now - (cron_job_tracker.time_last_synced.to_time rescue  Date.today.to_time)).to_i > 3600
+         if SuckerPunch::Queue.stats["SyncData"]["workers"]["idle"].to_i == 1 
+              SyncData.perform_in(3600)
          end
+      end
     end
+
   	render :text => "ok"
   end
   def start_den_assigment
@@ -39,6 +48,7 @@ class ApplicationController < ActionController::Base
 
   	render :text => "ok"
   end
+
   def start_couch_to_mysql
   	cron_job_tracker = CronJobsTracker.first
    	now = Time.now
@@ -50,13 +60,13 @@ class ApplicationController < ActionController::Base
   	render :text => "ok"
   end
   def start_update_sync
-  	if SETTINGS['site_type'].to_s != "facility"
+  	if SETTINGS['site_type'].to_s != "facility" && SETTINGS['site_type'].to_s != "remote"
 	  	cron_job_tracker = CronJobsTracker.first
 	   	now = Time.now
 	  	if (now - (cron_job_tracker.time_last_updated_sync.to_time rescue  Date.today.to_time)).to_i > 9000
 	            UpdateSyncStatus.perform_in(9000)
 	    end
-	end
+	  end
   	render :text => "ok"
   end
 end
