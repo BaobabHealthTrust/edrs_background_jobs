@@ -187,7 +187,10 @@ class PersonIdentifier < CouchRest::Model::Base
       self.can_assign_den = true
 
     elsif person_assigened_den.present?
-      
+          status = PersonRecordStatus.by_person_recent_status.key(person.id.to_s).last
+
+          status.update_attributes({:voided => true})
+          
           PersonRecordStatus.create({
                                     :person_record_id => person.id.to_s,
                                     :status => "HQ ACTIVE",
