@@ -13,9 +13,9 @@ class ApplicationController < ActionController::Base
            end
         end
     else
-      if (now - (cron_job_tracker.time_last_synced.to_time rescue  Date.today.to_time)).to_i > 3600
-         if SuckerPunch::Queue.stats["SyncData"]["workers"]["idle"].to_i == 1 
-              SyncData.perform_in(3600)
+      if (now - (cron_job_tracker.time_last_synced.to_time rescue  Date.today.to_time)).to_i > 731
+         if SuckerPunch::Queue.stats["SyncData"]["workers"]["busy"].to_i != 1 
+              SyncData.perform_in(731)
          end
       end
     end

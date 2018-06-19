@@ -4,7 +4,7 @@ else
 	if SETTINGS['site_type'].to_s != "remote"
 		 SyncData.perform_in(600)
 	else
-		 SyncData.perform_in(1600)
+		 SyncData.perform_in(731)
 	end
 end
 

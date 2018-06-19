@@ -15,8 +15,6 @@ source_to_target = %x[curl -s -k -H 'Content-Type: application/json' -X POST -d 
               continuous: true
                 }.to_json}' "#{dc[:protocol]}://#{dc[:username]}:#{dc[:password]}@#{dc[:host]}:#{dc[:port]}/_replicate"]                 
 
-puts "There are #{person_count } people"
-
 
 if dc[:bidirectional] == true
     target_to_source = %x[curl -s -k -H 'Content-Type: application/json' -X POST -d '#{{
