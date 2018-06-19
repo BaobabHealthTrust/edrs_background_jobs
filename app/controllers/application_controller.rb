@@ -7,16 +7,12 @@ class ApplicationController < ActionController::Base
   	cron_job_tracker = CronJobsTracker.first
    	now = Time.now
     if SETTINGS["site_type"] == "remote"
-        if (now - (cron_job_tracker.time_last_synced.to_time rescue  Date.today.to_time)).to_i > 600
-           if SuckerPunch::Queue.stats["SyncData"]["workers"]["idle"].to_i == 1 
-                SyncData.perform_in(600)
-           end
+        if (now - (cron_job_tracker.time_last_synced.to_time rescue  Date.today.to_time)).to_i > 311
+                SyncData.perform_in(311)
         end
     else
-      if (now - (cron_job_tracker.time_last_synced.to_time rescue  Date.today.to_time)).to_i > 731
-         if SuckerPunch::Queue.stats["SyncData"]["workers"]["busy"].to_i != 1 
-              SyncData.perform_in(731)
-         end
+      if (now - (cron_job_tracker.time_last_synced.to_time rescue  Date.today.to_time)).to_i > 311
+              SyncData.perform_in(311)
       end
     end
 
@@ -55,9 +51,7 @@ class ApplicationController < ActionController::Base
   	cron_job_tracker = CronJobsTracker.first
    	now = Time.now
   	if (now - (cron_job_tracker.time_last_sync_to_couch.to_time rescue  Date.today.to_time)).to_i > 12
-  			if SuckerPunch::Queue.stats["CouchSQL"]["workers"]["busy"].to_i != 1
             	CouchSQL.perform_in(12)
-            end
     end
   	render :text => "ok"
   end
