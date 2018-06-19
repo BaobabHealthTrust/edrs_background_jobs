@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
   	cron_job_tracker = CronJobsTracker.first
    	now = Time.now
   	if (now - (cron_job_tracker.time_last_sync_to_couch.to_time rescue  Date.today.to_time)).to_i > 12
-  			if SuckerPunch::Queue.stats["CouchSQL"]["workers"]["idle"].to_i == 1
+  			if SuckerPunch::Queue.stats["CouchSQL"]["workers"]["busy"].to_i != 1
             	CouchSQL.perform_in(12)
             end
     end
