@@ -6,7 +6,7 @@ person_count = Person.count
 fc = @settings[:fc]
 dc = @settings[:dc]
 
-source_to_target = %x[curl -s -k -H 'Content-Type: application/json' -X POST -d '#{{
+%x[curl -s -k -H 'Content-Type: application/json' -X POST -d '#{{
               source: "#{fc[:protocol]}://#{fc[:host]}:#{fc[:port]}/#{fc[:primary]}",
               target: "#{dc[:protocol]}://#{dc[:host]}:#{dc[:port]}/#{dc[:primary]}",
               connection_timeout: 60000,
@@ -17,7 +17,7 @@ source_to_target = %x[curl -s -k -H 'Content-Type: application/json' -X POST -d 
 
 
 if dc[:bidirectional] == true
-    target_to_source = %x[curl -s -k -H 'Content-Type: application/json' -X POST -d '#{{
+     %x[curl -s -k -H 'Content-Type: application/json' -X POST -d '#{{
                   source: "#{dc[:protocol]}://#{dc[:host]}:#{dc[:port]}/#{dc[:primary]}",
                   target: "#{fc[:protocol]}://#{fc[:host]}:#{fc[:port]}/#{fc[:primary]}",
                   connection_timeout: 60000,
@@ -29,7 +29,7 @@ if dc[:bidirectional] == true
                		 }.to_json}' "#{fc[:protocol]}://#{fc[:username]}:#{fc[:password]}@#{fc[:host]}:#{fc[:port]}/_replicate"]
 
 
-    pid_target_to_source = %x[curl -s -k -H 'Content-Type: application/json' -X POST -d '#{{
+    %x[curl -s -k -H 'Content-Type: application/json' -X POST -d '#{{
                   source: "#{dc[:protocol]}://#{dc[:host]}:#{dc[:port]}/#{dc[:primary]}",
                   target: "#{fc[:protocol]}://#{fc[:host]}:#{fc[:port]}/#{fc[:primary]}",
                   connection_timeout: 60000,
@@ -43,7 +43,7 @@ if dc[:bidirectional] == true
    
 
 
-    audits_target_to_source = %x[curl -s -k -H 'Content-Type: application/json' -X POST -d '#{{
+    %x[curl -s -k -H 'Content-Type: application/json' -X POST -d '#{{
                   source: "#{dc[:protocol]}://#{dc[:host]}:#{dc[:port]}/#{dc[:primary]}",
                   target: "#{fc[:protocol]}://#{fc[:host]}:#{fc[:port]}/#{fc[:primary]}",
                   connection_timeout: 60000,
@@ -55,7 +55,7 @@ if dc[:bidirectional] == true
                    }.to_json}' "#{fc[:protocol]}://#{fc[:username]}:#{fc[:password]}@#{fc[:host]}:#{fc[:port]}/_replicate"]
    
 
-    sync_target_to_source = %x[curl -s -k -H 'Content-Type: application/json' -X POST -d '#{{
+    %x[curl -s -k -H 'Content-Type: application/json' -X POST -d '#{{
                 source: "#{dc[:protocol]}://#{dc[:host]}:#{dc[:port]}/#{dc[:primary]}",
                 target: "#{fc[:protocol]}://#{fc[:host]}:#{fc[:port]}/#{fc[:primary]}",
                 connection_timeout: 60000,
@@ -67,7 +67,7 @@ if dc[:bidirectional] == true
                    }.to_json}' "#{fc[:protocol]}://#{fc[:username]}:#{fc[:password]}@#{fc[:host]}:#{fc[:port]}/_replicate"]
    
 
-    record_status_target_to_source = %x[curl -s -k -H 'Content-Type: application/json' -X POST -d '#{{
+    %x[curl -s -k -H 'Content-Type: application/json' -X POST -d '#{{
               source: "#{dc[:protocol]}://#{dc[:host]}:#{dc[:port]}/#{dc[:primary]}",
               target: "#{fc[:protocol]}://#{fc[:host]}:#{fc[:port]}/#{fc[:primary]}",
               connection_timeout: 60000,
