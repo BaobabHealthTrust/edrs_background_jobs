@@ -40,8 +40,8 @@ hq = @settings[:hq]
               continuous: true,
               filter: 'Audit/facility_sync',
                   query_params: {
-                      district_code: "#{district_code}"
-                  }
+                      site_id: "#{district_code}"
+                            }
                 }.to_json}' "#{hq[:protocol]}://#{hq[:username]}:#{hq[:password]}@#{hq[:host]}:#{hq[:port]}/_replicate"]  
 
 %x[curl -s -k -H 'Content-Type: application/json' -X POST -d '#{{
