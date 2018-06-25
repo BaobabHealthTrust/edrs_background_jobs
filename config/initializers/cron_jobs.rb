@@ -1,10 +1,15 @@
-if Rails.env == 'development'
-     SyncData.perform_in(240)
+if SETTINGS['site_type'] == "hq"
+	hq_jobs = HQCronJobsTracker.first
+	HQCronJobsTracker.new.save if hq_jobs.blank?
 else
-	if SETTINGS['site_type'].to_s != "remote"
-		 SyncData.perform_in(600)
+	if Rails.env == 'development'
+	     SyncData.perform_in(240)
 	else
-		 SyncData.perform_in(731)
+		if SETTINGS['site_type'].to_s != "remote"
+			 SyncData.perform_in(600)
+		else
+			 SyncData.perform_in(731)
+		end
 	end
 end
 
@@ -15,9 +20,4 @@ else
 end
 
 
-CouchSQL.perform_in(1200)
-
-midnight = (Date.today).to_date.strftime("%Y-%m-%d 23:59:59").to_time
-now = Time.now
-diff = (midnight  - now).to_i
-LoadMysql.perform_in(diff)
+CouchSQL.perform_in(30)

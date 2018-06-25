@@ -63,4 +63,8 @@ Rails.application.routes.draw do
   get "/application/start_couch_to_mysql"
 
   get "/application/start_update_sync"
+
+  get "/application/start_generate_stats"
+
+  get "/application/get_stats"
 end

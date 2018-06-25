@@ -65,4 +65,22 @@ class ApplicationController < ActionController::Base
 	  end
   	render :text => "ok"
   end
+
+  def start_generate_stats
+      cron_job_tracker = HQCronJobsTracker.first
+      now = Time.now
+      if (now - (cron_job_tracker.time_last_generate_stats.to_time rescue  Date.today.to_time)).to_i > 700
+               GenerateStats.perform_in(700)
+               cron_job_tracker.time_last_generate_stats = now + 700.seconds
+               cron_job_tracker.save
+     end
+     render :text => "ok"
+  end
+
+  def get_stats
+    file_name = Rails.root.join('db', 'dashboard.json')
+    #file_name = Rails.root.join('db', 'dashboardtest.json')
+    fileinput = JSON.parse(File.read(file_name))
+    render :text => fileinput.to_json
+  end
 end
