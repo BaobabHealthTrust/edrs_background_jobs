@@ -3,7 +3,7 @@ class GenerateStats
   	workers 1
   
   	def perform()
-      load("#{Rails.root}/bin/scripts/stats.rb")
+      Kernel.system "bundle exec rake edrs:stats"
       if Rails.env == "development"
       	 GenerateStats.perform_in(233)
       else	

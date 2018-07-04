@@ -2,7 +2,7 @@ class UpdateSyncStatus
 	include SuckerPunch::Job
   	workers 1
   	def perform
-      load "#{Rails.root}/bin/script/update_sync_status.rb"
+      Kernel.system "bundle exec rake edrs:update_sync_status"
       update_sync_tracker = CronJobsTracker.first
       update_sync_tracker = CronJobsTracker.new if update_sync_tracker.blank?
       update_sync_tracker.time_last_updated_sync = Time.now
