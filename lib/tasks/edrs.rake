@@ -6,6 +6,8 @@ namespace :edrs do
   end
 
   task sync: :environment do
+    require Rails.root.join('bin','./sync/sync_all.rb')
+=begin
   	if SETTINGS['site_type'] =="facility"
   		puts "Facility Sync"
     	require Rails.root.join('bin','./sync/facility_sync.rb')
@@ -16,6 +18,7 @@ namespace :edrs do
       puts "DC Remote Sync"
       require Rails.root.join('bin','./sync/sync_all.rb')
    	end
+=end
   end
 
   task barcode_sync: :environment do
