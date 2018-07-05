@@ -125,7 +125,6 @@ gender.each do |sex|
            WHERE date_of_death BETWEEN '2018-01-01' AND '2018-12-31' 
            AND gender='#{sex}' AND  
            DATEDIFF(date_of_death, birthdate)/365 #{age}"
-    puts sql
     group_stats << connection.select_all(sql).as_json.last['total'] rescue 0
   end
   stats["age_group"][sex] = group_stats
