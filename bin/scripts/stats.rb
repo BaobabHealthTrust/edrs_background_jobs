@@ -107,6 +107,56 @@ District.all.each do |district|
           stats["districts"][district.id][:year_approved] = district_approved
           stats["districts"][district.id][:year_printed] = district_printed
 end
+
+stats["age_group"] = {}
+gender = ["Male","Female"]
+
+gender.each do |sex|
+  age_group = ['<1', '1-4', '5-14', '15-24', '25-34', '35-44','45-54', '55-64', '65-74', '75-84', '>85']
+  group_stats = []
+  age_group.each do |group|
+
+    if group.include?("-")
+        age = "BETWEEN #{group.gsub("-"," AND ")}"
+    else
+        age = group
+    end
+    sql = "SELECT count(*) as total FROM people
+           WHERE date_of_death BETWEEN '2018-01-01' AND '2018-12-31' 
+           AND gender='#{sex}' AND  
+           DATEDIFF(date_of_death, birthdate)/365 #{age}"
+    group_stats << connection.select_all(sql).as_json.last['total'] rescue 0
+  end
+  stats["age_group"][sex] = group_stats
+end
+
+stats["age_group"]["districts"] = {}
+
+District.all.each do |district|
+          next if district.name.include?("City")
+          stats["age_group"]["districts"][district.id] = {}
+          gender = ["Male","Female"]
+          gender.each do |sex|
+            age_group = ['<1', '1-4', '5-14', '15-24', '25-34', '35-44','45-54', '55-64', '65-74', '75-84', '>85']
+            group_stats = []
+            age_group.each do |group|
+                  if group.include?("-")
+                      age = "BETWEEN #{group.gsub("-"," AND ")}"
+                  else
+                      age = group
+                  end
+                  sql = "SELECT count(*) as total FROM people
+                         WHERE district_code ='#{district.id}' AND date_of_death BETWEEN '2018-01-01' AND '2018-12-31' 
+                         AND gender='#{sex}' AND  
+                         DATEDIFF(date_of_death, birthdate)/365 #{age}"
+
+                  group_stats << connection.select_all(sql).as_json.last['total'] rescue 0
+            end
+            stats["age_group"]["districts"][district.id][sex] = group_stats
+        end
+end
+
+
 if newfile
          newfile.syswrite(stats.to_json)
 else
