@@ -7,9 +7,7 @@ class CauseOfDeathDispatch < CouchRest::Model::Base
 
 	design do
     	view :by__id
-    	view :by_creator
     	view :by_district_code
-    	view :by_created_at
 		filter :district_sync, "function(doc,req) {return req.query.district_code == doc.district_code}"
     end
 

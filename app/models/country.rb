@@ -6,13 +6,5 @@ class Country < CouchRest::Model::Base
 	timestamps!
 	design do
 	    view :by__id
-	    view :by_name
-	    view :by_country,
-	    	 :map => "function(doc) {
-                  if ((doc['type'] == 'Country')) {
-                    emit(doc['name'], 1);
-                  }
-                }"
-      	view :by_iso
 	end
 end

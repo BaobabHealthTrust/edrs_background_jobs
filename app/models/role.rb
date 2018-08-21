@@ -5,7 +5,6 @@ class Role < CouchRest::Model::Base
   property :activities, []
 
   design do
-    view :all
     view :by__id
     view :by_role
     view :by_level

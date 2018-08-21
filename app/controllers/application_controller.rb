@@ -19,33 +19,6 @@ class ApplicationController < ActionController::Base
   	render :text => "ok"
   end
 
-  def start_den_assigment
-  	begin
-  		cron_job_tracker = CronJobsTracker.first
-	   	now = Time.now
-	   	if SETTINGS['site_type'].to_s != "facility"
-	        last_run_time = File.mtime("#{Rails.root}/public/sentinel").to_time
-	        job_interval = SETTINGS['ben_assignment_interval']
-	        job_interval = 1.5 if job_interval.blank?
-	        job_interval = job_interval.to_f
-	        
-	        if (now - last_run_time).to_f > job_interval
-	          if SETTINGS['site_type'].to_s != "facility"
-	            if (defined? PersonIdentifier.can_assign_den).nil?
-	              PersonIdentifier.can_assign_den = true
-	            end
-	            AssignDen.perform_in(job_interval)
-	          end
-	          
-	        end
-	    end
-  	rescue Exception => e
-  		
-  	end
-
-  	render :text => "ok"
-  end
-
   
   def start_couch_to_mysql
   	cron_job_tracker = CronJobsTracker.first

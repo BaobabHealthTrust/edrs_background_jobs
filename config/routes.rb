@@ -58,8 +58,6 @@ Rails.application.routes.draw do
 
   get "/application/start_sync" 
 
-  get "/application/start_den_assigment"
-
   get "/application/start_couch_to_mysql"
 
   get "/application/start_update_sync"

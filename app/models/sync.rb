@@ -11,18 +11,6 @@ class Sync < CouchRest::Model::Base
 		view :by__id
 		view :by_district_code
 		view :by_facility_code
-		view :by_dc_unsynced,
-			   :map => "function(doc) {
-	                  if (doc['type'] == 'Sync' && doc['dc_sync_status'] == false) {
-	                    	emit(doc['record_id'], 1);
-	                  }
-	                }"
-	    view :by_hq_unsynced,
-			   :map => "function(doc) {
-	                  if (doc['type'] == 'Sync' && doc['hq_sync_status'] == false) {
-	                    	emit(doc['record_id'], 1);
-	                  }
-	                }"
 		filter :district_sync, "function(doc,req) {return req.query.district_code == doc.district_code}"
 		filter :facility_sync, "function(doc,req) {return req.query.facility_code == doc.facility_code}"
 		filter :stats_sync, "function(doc,req) {return doc.district_code != null}"

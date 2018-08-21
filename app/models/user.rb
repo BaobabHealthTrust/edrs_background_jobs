@@ -45,44 +45,9 @@ class User < CouchRest::Model::Base
   end
 
   design do
-    view :by_active
-    view :by_username
-    view :by_role
-    view :by_created_at
-    view :by_updated_at
-    view :by_site_code
+    view :by__id
     view :by_district_code
     # active views
-    view :active_users,
-         :map => "function(doc){
-            if (doc['type'] == 'User' && doc['active'] == true){
-              emit(doc.username, {username: doc.username,first_name: doc.first_name,
-              last_name: doc.last_name, email: doc.email,role: doc.role,
-              creator: doc.creator, notify: doc.notify, updated_at: doc.updated_at});
-            }
-          }"
-    view :inactive_users,
-         :map => "function(doc){
-            if (doc['type'] == 'User' && doc['active'] == false){
-              emit(doc.username, {username: doc.username,first_name: doc.first_name,
-              last_name: doc.last_name, email: doc.email,role: doc.role,
-              creator: doc.creator, notify: doc.notify, updated_at: doc.updated_at});
-            }
-          }"
-    view :by_facility_activation,
-          :map => "function(doc){
-                if(doc['type'] == 'User'){
-                    emit([doc['site_code'], doc['active']],1)
-                }
-                     
-          }"
-    view :by_district_actication,
-          :map =>  "function(doc){
-                if(doc['type'] == 'User'){
-                    emit([doc['district_code'], doc['active']],1)
-                }
-                     
-          }"
                 
      filter :district_sync, "function(doc,req) {return req.query.district_code == doc.district_code}"    
              

@@ -16,3 +16,4 @@
 !/log/.keep
 /tmp
 config/*.yml
+app/db/MySQL_data/*.sql

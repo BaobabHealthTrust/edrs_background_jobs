@@ -9,8 +9,6 @@ class Barcode < CouchRest::Model::Base
 
 	design do
     	view :by__id
-    	view :by_barcode
-    	view :by_assigned
     	filter :assigned_sync, "function(doc,req) {return req.query.assigned == 'true' }"
     end
 

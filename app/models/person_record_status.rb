@@ -20,12 +20,7 @@ class PersonRecordStatus < CouchRest::Model::Base
 	design do 
 		view :by_status
 		view :by_district_code
-		view :by_voided
-		view :by_creator
-		view :by_created_at
-		view :by_person_record_id
-		view :by_prev_status
-		view :by_prev_status_and_status
+		view :by_facility_code
 	    view :by_person_recent_status,
 				 :map => "function(doc) {
 	                  if (doc['type'] == 'PersonRecordStatus' && doc['voided'] == false) {
@@ -33,67 +28,6 @@ class PersonRecordStatus < CouchRest::Model::Base
 	                    	emit(doc['person_record_id'], 1);
 	                  }
 	                }"
-	    view :by_person_record_id_recent_status,
-				 :map => "function(doc) {
-	                  if (doc['type'] == 'PersonRecordStatus' && doc['voided'] == false) {
-
-	                    	emit([doc['person_record_id'],doc['status']], 1);
-	                  }
-	                }"
-
-		view :by_record_status,
-	         	 :map => "function(doc) {
-	                  if (doc['type'] == 'PersonRecordStatus' && doc['voided'] == false) {
-
-	                    	emit(doc['status'], 1);
-	                  }
-	                }"
-	     view :by_district_code_and_record_status,
-	    			 :map => "function(doc) {
-	                  if (doc['type'] == 'PersonRecordStatus' && doc['voided'] == false) {
-
-	                    	emit([doc['district_code'],doc['status']], 1);
-	                  }
-	                }"
-	    view :by_marked_for_approval,
-	    		:map =>"function(doc){
-		    			   if (doc['type'] == 'PersonRecordStatus' && doc['voided'] == false && doc['status']=='MARKED APPROVAL'){
-		                    	emit(doc['status'], 1);
-		                  	}
-	    			   }"
-	    view :by_marked_for_hq_approval,
-	    		:map => "function(doc){
-	    					 if (doc['type'] == 'PersonRecordStatus' && doc['voided'] == false && doc['status']=='MARKED HQ APPROVAL'){
-		                    	emit(doc['status'], 1);
-		                  	}
-	    				}"	
-	    view :by_amend_or_reprint,
-	    		:map =>"function(doc){
-		    			   if (doc['type'] == 'PersonRecordStatus' && doc['reprint'] == true){
-		                    	emit(doc['status'], 1);
-		                  	}
-	    			   }"
-	    view :by_status_and_created_at
-	    view :by_district_code_and_status_and_created_at
-	    view :by_reprint_date,
-	    	  :map =>"function(doc){
-		    			   if (doc['type'] == 'PersonRecordStatus' && doc['voided'] == false && doc['reprint']==true){
-		                    	emit(doc['created_at'], 1);
-		                  	}
-	    			   }"	
-	    view :by_status_and_time,
-	    	  :map =>"function(doc){
-		    			   if (doc['type'] == 'PersonRecordStatus'){
-		                    	emit(doc['status']+'_'+doc['created_at'], 1);
-		                  	}
-	    			   }"
-	    view :registration_type_and_recent_status,
-	    		:map =>"function(doc){
-		    			   if (doc['type'] == 'PersonRecordStatus' && doc['voided'] == false){
-		                    	emit([doc['registration_type'],doc['status']], 1);
-		                  	}
-	    			   }"
-
 	    filter :district_sync, "function(doc,req) {return req.query.district_code == doc.district_code}"
 	    filter :facility_sync, "function(doc,req) {return req.query.facility_code == doc.facility_code}"
 	    filter :stats_sync, "function(doc,req) {return doc.district_code != null}"
