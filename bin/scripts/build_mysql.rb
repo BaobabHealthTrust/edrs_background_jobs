@@ -161,7 +161,7 @@ def create_mysql_database(model_name ,table_name,records_per_page,page_number,ta
 
 EOF
 
-      sql_statement += "INSERT INTO #{table_name} (#{table_primary_key}, "
+      sql_statement += "INSERT IGNORE  INTO #{table_name} (#{table_primary_key}, "
     else
         return
     end
