@@ -197,7 +197,11 @@ EOF
       (statements || []).each do |statement|
         if statement[:data].blank?
           if statement[:type] == 'TrueClass'
-            sql_statement += "0, "
+            if statement[:data].to_s =="true"
+              sql_statement += "1, "
+            else
+              sql_statement += "0, "            
+            end
           else 
             sql_statement += "NULL, "
           end
