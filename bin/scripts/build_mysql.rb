@@ -196,17 +196,15 @@ EOF
 
       (statements || []).each do |statement|
         if statement[:data].blank?
-          if statement[:type] == 'TrueClass'
-            if statement[:data].to_s =="true"
+            sql_statement += "NULL, "
+        elsif statement[:type] == 'Integer' 
+          sql_statement += "'#{statement[:data]}',"
+        elsif statement[:type] == 'TrueClass'
+          if statement[:data].to_s =="true"
               sql_statement += "1, "
             else
               sql_statement += "0, "            
             end
-          else 
-            sql_statement += "NULL, "
-          end
-        elsif statement[:type] == 'Integer' || statement[:type] == 'TrueClass'
-          sql_statement += "'#{statement[:data]}',"
         elsif statement[:type] == 'Date'
           sql_statement += '"' + "#{statement[:data].to_date.strftime('%Y-%m-%d')}" + '",'
         elsif statement[:type] == 'Time'
