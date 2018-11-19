@@ -161,7 +161,7 @@ def create_mysql_database(model_name ,table_name,records_per_page,page_number,ta
 
 EOF
 
-      sql_statement += "INSERT INTO #{table_name} (#{table_primary_key}, "
+      sql_statement += "INSERT IGNORE  INTO #{table_name} (#{table_primary_key}, "
     else
         return
     end
@@ -196,13 +196,15 @@ EOF
 
       (statements || []).each do |statement|
         if statement[:data].blank?
-          if statement[:type] == 'TrueClass'
-            sql_statement += "0, "
-          else 
             sql_statement += "NULL, "
-          end
-        elsif statement[:type] == 'Integer' || statement[:type] == 'TrueClass'
+        elsif statement[:type] == 'Integer' 
           sql_statement += "'#{statement[:data]}',"
+        elsif statement[:type] == 'TrueClass'
+          if statement[:data].to_s =="true"
+              sql_statement += "1, "
+            else
+              sql_statement += "0, "            
+            end
         elsif statement[:type] == 'Date'
           sql_statement += '"' + "#{statement[:data].to_date.strftime('%Y-%m-%d')}" + '",'
         elsif statement[:type] == 'Time'
