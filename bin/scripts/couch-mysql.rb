@@ -122,7 +122,7 @@ else
 	last_seq = CouchdbSequence.last
 	seq = last_seq.seq rescue 0
 
-	puts "#{couch_protocol}://#{couch_username}:#{couch_password}@#{couch_host}:#{couch_port}/#{couch_db}/_changes?include_docs=true&limit=10&since=#{seq}"
+	
 	begin
 		seq = CouchdbSequence.last.seq rescue 0 
 

@@ -1,3 +1,4 @@
+=begin
 if SETTINGS['site_type'] == "hq"
 	hq_jobs = HQCronJobsTracker.first
 	HQCronJobsTracker.new.save if hq_jobs.blank?
@@ -21,3 +22,4 @@ end
 
 
 CouchSQL.perform_in(30)
+=end
